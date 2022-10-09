@@ -1,0 +1,12 @@
+<!--
+	TODO:
+	Верхняя полка: вход, название сайта
+	Меню: каталог, корзина, регистрация, заказ, выход
+-->
+<?php
+include("header_code.php");
+include("login_block.php");
+include("header.php");
+include("middle_code.php");
+include("welcome.php");
+include("footer_code.php");?>
