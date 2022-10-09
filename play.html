@@ -1,0 +1,19 @@
+<script language="javascript" src="code.js"></script>
+<link rel="stylesheet" href="style.css">
+<div class="container">
+    <div id="themes">
+        <div class="title">Список тем</div>
+        <div class="tasks">
+            <a onclick="load('part1')">1.Работа с атрибутами</a><BR>
+        </div>
+    </div>
+    <div class="draw">
+        <div class="title" id="titlePresent">Презентация</div>
+        <canvas id="canvas" onclick="setArc(event.clientX,event.clientY)" width="400%" height="220%"
+            style="border: 1px solid black"></canvas>
+        <!--<div><img src="lection_pic.png" style="width:100%"></img></div>-->
+        <img src="red.png" onclick="setRed()">
+        <img src="green.png" onclick="setGreen()">
+        <img src="blue.png" onclick="setBlue()">
+    </div>
+</div>

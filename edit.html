@@ -1,0 +1,38 @@
+<script language="javascript" src="code.js"></script>
+<link rel="stylesheet" href="style.css">
+<div class="container">
+    <div id="themes">
+        <div class="title">Список тем</div>
+        <div class="tasks">
+            <a onclick="load('part1')">1.Работа с атрибутами</a><BR>
+        </div>
+    </div>
+    <div class="player">
+        <div class="title">Видео</div>
+        <div>
+            <video width="100%" id="video">
+                <source src="vid2.mp4" type="video/mp4">
+            </video>
+            <div class="timeline">
+                <!--id=timeline onload=timer()>-->
+                <div style="float:left"><img src="play.png" onclick="play_pause()" id="ctrl"></div>
+                <div style="float:left"><img src="prev.png" onclick="go_prev()" id="ctrl"></div>
+                <div style="float:left"><img src="next.png" onclick="go_next()" id="ctrl"></div>
+                <div class="line" id="line" onclick="set_now(event.clientX)">
+                    <div class="now" id="now_line">
+                    </div>
+                </div>
+                <div class="timenow" id="now_time" onload="set_nowtime()">time</div>
+            </div>
+        </div>
+    </div>
+    <div class="draw">
+        <div class="title" id="titlePresent">Презентация</div>
+        <canvas id="canvas" onclick="setArc(event.clientX,event.clientY)" width="400%" height="220%"
+            style="border: 1px solid black"></canvas>
+        <!--<div><img src="lection_pic.png" style="width:100%"></img></div>-->
+        <img src="red.png" onclick="setRed()">
+        <img src="green.png" onclick="setGreen()">
+        <img src="blue.png" onclick="setBlue()">
+    </div>
+</div>

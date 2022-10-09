@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>Play</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <table style="border: 1px solid black;max-width: 80%;margin:auto;background: #ccc;border:1px solid #444">
+        <tr><td style="border: 1px solid black"><H3>Проект мультимедиа лекции - просмотр</H3></td></tr>
+        <tr><td style="border: 1px solid black"><H3 id="currSlide">Текущий слайд: 1</H3></td></tr>
+        <tr>
+            <td>
+                <table style="border: 1px solid black">
+                    <tr><td style="border: 1px solid black"><p>Список слайдов</p></td>
+                        <td style="border: 1px solid black"><p>Видео</p></td>
+                        <td style="border: 1px solid black"><p>Слайд</p></td></tr>
+                    <tr>
+                        <td style="border: 1px solid black" id="slideList"><p>Слайды не загружены</p></td>
+                        <td style="border: 1px solid black">
+                            <table>
+                                <tr>
+                                    <td style="border: 1px solid black">
+                                        <video width=400 height=300 id="gum" controls></video>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid black">
+                                        <button id="next">Следующий</button>
+                                        <button id="prev" disabled>Предыдущий</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="border: 1px solid black">
+                            <img width=400 height=300 id="img">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+
+<script>
+    video = document.getElementById("gum")
+    video.onended = function(){
+        video.autoplay = true;
+        goNext();
+        if (slideID == SlideCount+1)
+            video.autoplay = false;
+    }
+
+    slideID=1
+    document.getElementById("gum").src = "media/Слайд1.webm"
+    document.getElementById("img").src = "media/Слайд1.jpg"
+    var mediaRecorder;
+    var recordedBlobs;
+    var gumVideo = document.querySelector('video#gum');
+    nextButton = document.querySelector("button#next")
+    nextButton.onclick = goNext
+    prevButton = document.querySelector("button#prev")
+    prevButton.onclick = goPrev
+
+    LoadSlides()
+    function LoadSlides() {
+        SlideCount = 4//prompt("Введите количество слайдов: ")
+        toInsert = ""
+        for (i = 0;i++ < SlideCount;){
+            if (i == slideID)
+                toInsert += "<a style='background:#aaa' onclick=SetImg("+i+")>Слайд"+i+".jpg</a><br>"
+            else
+                toInsert += "<a onclick=SetImg("+i+")>Слайд"+i+".jpg</a><br>"
+        }
+        document.getElementById("slideList").innerHTML = toInsert
+    }
+
+    function SetImg(id) {
+        if (slideID != id){
+            slideID = id
+            document.getElementById("currSlide").innerHTML = "Текущий слайд: "+slideID
+            document.getElementById("gum").src = "media/Слайд"+id+".webm"
+            document.getElementById("img").src = "media/Слайд"+id+".jpg"
+            if (slideID == 1){
+                document.getElementById("next").disabled = false
+                document.getElementById("prev").disabled = true
+            } else
+            if (slideID == SlideCount){
+                document.getElementById("next").disabled = true
+                document.getElementById("prev").disabled = false
+            } else {
+                document.getElementById("next").disabled = false
+                document.getElementById("prev").disabled = false
+            }
+        }
+        LoadSlides()
+    }
+
+    function goNext(){
+        if (slideID < SlideCount){
+            slideID ++
+            document.getElementById("prev").disabled = false
+            document.getElementById("currSlide").innerHTML = "Текущий слайд: "+slideID
+            document.getElementById("gum").src = "media/Слайд"+slideID+".webm"
+            document.getElementById("img").src = "media/Слайд"+slideID+".jpg"
+        }
+        if (slideID == SlideCount)
+            document.getElementById("next").disabled = true
+        LoadSlides()
+    }
+
+    function goPrev(){
+        if (slideID > 1){
+            slideID --
+            document.getElementById("next").disabled = false
+            document.getElementById("currSlide").innerHTML = "Текущий слайд: "+slideID
+            document.getElementById("gum").src = "media/Слайд"+slideID+".webm"
+            document.getElementById("img").src = "media/Слайд"+slideID+".jpg"
+        }
+        if (slideID == 1)
+            document.getElementById("prev").disabled = true
+        LoadSlides()
+    }
+</script>
